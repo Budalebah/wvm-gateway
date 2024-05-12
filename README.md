@@ -49,6 +49,27 @@ docker run -e START_HEIGHT=800000 -v $PWD/data/:/app/data ar-io-core:latest
 You can also run [Envoy] along side an `ar.io` node via [Docker Compose]. Envoy
 will proxy routes to `arweave.net` not yet implemented in the ar.io node.
 
+For running both the Envoy and AR.IO Node using Docker Compose, create a docker-compose.yml file with the following content:
+```shell
+version: "3"
+
+services:
+  envoy:
+    image: envoy
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/data
+  ar-io-node:
+    image: ar-io-core:latest
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./data:/app/data
+
+```shell
+
+
 ```shell
 docker compose up --build
 ```
